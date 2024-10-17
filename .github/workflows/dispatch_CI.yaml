@@ -26,8 +26,10 @@ jobs:
           with:
             go-version: 1.23
         - name: Build
+          working-directory: dispatch
           run: go build -o dispatch
         - name: Test
+          working-directory: dispatch
           run: go test ./...
 
     code-quality:
@@ -35,10 +37,11 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
+        - name: Install golangci-lint
+          run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
         - name: Run golangci-lint
-          uses: golangci/golangci-lint-action@v6
-          with:
-           version: v1.56.2
+          run: golangci-lint run dispatch
+  
 
     docker-image-build_ECR-image-push:
         runs-on: ubuntu-latest
@@ -65,7 +68,7 @@ jobs:
               id: login-ecr
               run: aws ecr get-login-password --region ${{env.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{env.AWS_REGION}}.amazonaws.com
             - name: Push image to Amazon ECR
-              run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{ vars.AWS_ECR_REPO_NAME }}:${{github.run_id}}
+              run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
             - name: Push image to Amazon ECR
               run: docker push ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
 

@@ -18,9 +18,6 @@ env:
 jobs:
     build:
       runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          python-version: [3.8, 3.9]
       steps:
         - name: Checkout the source code
           uses: actions/checkout@v3
@@ -28,7 +25,7 @@ jobs:
         - name: Set Up Python Environment.
           uses: actions/setup-python@v3
           with:
-            python-version: ${{ matrix.python-version }}
+            python-version: 3.9
     
         - name: Install application Dependencies.
           run: |
@@ -40,6 +37,7 @@ jobs:
           run: flake8 . --count --show-source --statistics
           continue-on-error: true
         - name: Run Unit Tests
+          working-directory: payment
           run: |
             coverage run manage.py test
             coverage report
@@ -69,7 +67,7 @@ jobs:
               id: login-ecr
               run: aws ecr get-login-password --region ${{env.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{env.AWS_REGION}}.amazonaws.com
             - name: Push image to Amazon ECR
-              run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{ vars.AWS_ECR_REPO_NAME }}:${{github.run_id}}
+              run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
             - name: Push image to Amazon ECR
               run: docker push ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
 

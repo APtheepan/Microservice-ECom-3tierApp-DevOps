@@ -31,15 +31,19 @@ jobs:
         ini-values: post_max_size=256M, max_execution_time=300
 
     - name: Install dependencies with Composer
+      working-directory: ratings
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run tests
+      working-directory: ratings
       run: phpunit --configuration phpunit.xml
 
     - name: Lint PHP code
+      working-directory: ratings
       run: ./vendor/bin/phpcs --standard=PSR12 ratings/html/src/ # Example, add path accordingly
 
     - name: Run security check
+      working-directory: ratings
       run: ./vendor/bin/phpstan analyse ratings/html/src/ --level=max # Optional for security checks
 
 
@@ -70,6 +74,6 @@ jobs:
       id: login-ecr
       run: aws ecr get-login-password --region ${{env.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{env.AWS_REGION}}.amazonaws.com
     - name: Push image to Amazon ECR
-      run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{ vars.AWS_ECR_REPO_NAME }}:${{github.run_id}}
+      run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
     - name: Push image to Amazon ECR
       run: docker push ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
