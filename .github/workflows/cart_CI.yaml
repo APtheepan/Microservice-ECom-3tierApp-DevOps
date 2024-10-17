@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'cart/**'
-      - '.github/workflows/cart_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

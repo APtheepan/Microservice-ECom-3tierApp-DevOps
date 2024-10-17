@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'mongo/**'
-      - '.github/workflows/mongo_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

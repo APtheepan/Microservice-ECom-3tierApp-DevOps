@@ -4,9 +4,6 @@ on:
  push:
     branches:
      - main
-    paths:
-     - 'shipping/**'
-     - '.github/workflows/shipping_CI.yaml'
     paths-ignore:
      - 'README.md'
      - 'helm/**'

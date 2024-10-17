@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'payment/**'
-      - '.github/workflows/payment_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

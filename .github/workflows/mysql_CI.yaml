@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'mysql/**'
-      - '.github/workflows/mysql_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

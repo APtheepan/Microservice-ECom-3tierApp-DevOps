@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'catalogue/**'
-      - '.github/workflows/catalogue_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

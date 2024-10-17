@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'user/**'
-      - '.github/workflows/user_CI.yaml'
     paths-ignore:
       - 'README.md'
       - 'helm/**'

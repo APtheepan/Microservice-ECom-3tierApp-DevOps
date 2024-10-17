@@ -4,9 +4,6 @@ on:
  push:
     branches:
      - main
-    paths:
-     - 'ratings/**'
-     - '.github/workflows/rating_CI.yaml'
     paths-ignore:
      - 'README.md'
      - 'helm/**'
