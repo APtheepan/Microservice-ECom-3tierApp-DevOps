@@ -1,0 +1,85 @@
+name: "Continuous Integration cart CI"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cart/**'
+      - '.github/workflows/cart_CI.yaml'
+    paths-ignore:
+      - 'README.md'
+      - 'helm/**'
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  AWS_ECR_REPO_NAME: ${{ vars.AWS_ECR_CART }}
+  REPOSITORY_URI: ${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/
+  GITHUB_REPO: Microservice-ECom-3tierApp-DevOps
+  GITHUB_USER: APtheepan
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: Set up node
+          uses: actions/setup-node@v2
+          with:
+            node-version: '14'
+        - name: Build
+          run: npm install
+        - name: Test
+          run: npm test
+    docker-image-build_ECR-image-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Build docker image
+              working-directory: cart
+              run: |
+                docker build -t ${{env.AWS_ECR_REPO_NAME}} -f Dockerfile .
+
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Configure aws credentials
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ${{ env.AWS_REGION }}
+
+            - name: Login to Amazon ECR
+              id: login-ecr
+              run: aws ecr get-login-password --region ${{env.AWS_REGION}} | docker login --username AWS --password-stdin ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{env.AWS_REGION}}.amazonaws.com
+            - name: Push image to Amazon ECR
+              run: docker tag ${{env.AWS_ECR_REPO_NAME}} ${{env.REPOSITORY_URI}}${{ vars.AWS_ECR_REPO_NAME }}:${{github.run_id}}
+            - name: Push image to Amazon ECR
+              run: docker push ${{env.REPOSITORY_URI}}${{env.AWS_ECR_REPO_NAME}}:${{github.run_id}}
+
+    # update-newtag-in-helm-chart:
+    #   runs-on: ubuntu-latest
+
+    #   needs: docker-image-build_ECR-image-push
+
+    #   steps:
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v4
+    #     with:
+    #       token: ${{ secrets.TOKEN }}
+
+    #   - name: Update tag in Helm chart
+    #     run: |
+    #       sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm/go-web-app-chart/values.yaml
+
+    #   - name: Commit and push changes
+    #     run: |
+    #       git config --global user.email "cjash@gmail.com"
+    #       git config --global user.name "APtheepan"
+    #       git add helm/go-web-app-chart/values.yaml
+    #       git commit -m "Update tag in Helm chart ${{github.run_id}}"
+    #       git push
