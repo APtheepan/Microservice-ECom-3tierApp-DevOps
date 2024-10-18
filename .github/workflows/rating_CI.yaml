@@ -28,6 +28,7 @@ jobs:
                 export DOCKER_BUILDKIT=0
                 docker build -t ${{env.AWS_ECR_REPO_NAME}} -f Dockerfile .
 
+                
             - name: Checkout code
               uses: actions/checkout@v2
 
