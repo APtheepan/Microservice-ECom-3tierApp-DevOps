@@ -23,7 +23,7 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Build docker image
-              working-directory: payment
+              working-directory: ratings
               run: |
                 docker build -t ${{env.AWS_ECR_REPO_NAME}} -f Dockerfile .
 
