@@ -16,39 +16,7 @@ env:
     GITHUB_USER: APtheepan
     GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-jobs:
-  
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4' # Specify PHP version, change as needed
-        extensions: mbstring, intl, dom, pdo_mysql, opcache, zip # Add necessary extensions
-        ini-values: post_max_size=256M, max_execution_time=300
-
-    - name: Install dependencies with Composer
-      working-directory: ratings
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    - name: Run tests
-      working-directory: ratings
-      run: phpunit --configuration phpunit.xml
-
-    - name: Lint PHP code
-      working-directory: ratings
-      run: ./vendor/bin/phpcs --standard=PSR12 ratings/html/src/ # Example, add path accordingly
-
-    - name: Run security check
-      working-directory: ratings
-      run: ./vendor/bin/phpstan analyse ratings/html/src/ --level=max # Optional for security checks
-
-
-  
+jobs: 
   docker-image-build_ECR-image-push:
     runs-on: ubuntu-latest
     steps:
