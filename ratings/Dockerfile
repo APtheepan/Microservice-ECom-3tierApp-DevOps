@@ -28,4 +28,3 @@ RUN composer install
 RUN rm -Rf /var/www/var/*
 RUN chown -R www-data /var/www
 RUN chmod -R 777 /var/www
-

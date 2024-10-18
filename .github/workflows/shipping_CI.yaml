@@ -29,10 +29,12 @@ jobs:
         distribution: 'adopt' # Options: adopt, zulu, temurin, etc.
         #cache: maven
     - name: Build with Maven
+      working-directory: shipping
       run: mvn clean install
 
       # Run tests with Maven
     - name: Run tests with Maven
+      working-directory: shipping
       run: mvn test
 
  docker-image-build_ECR-image-push:
