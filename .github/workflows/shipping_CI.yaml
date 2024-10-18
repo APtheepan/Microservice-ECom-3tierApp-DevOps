@@ -26,7 +26,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        #distribution: 'adopt' # Options: adopt, zulu, temurin, etc.
+        distribution: 'adopt' # Options: adopt, zulu, temurin, etc.
         #cache: maven
     - name: Build with Maven
       run: mvn clean install

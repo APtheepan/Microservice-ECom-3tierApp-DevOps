@@ -47,8 +47,7 @@ jobs:
       run: ./vendor/bin/phpstan analyse ratings/html/src/ --level=max # Optional for security checks
 
 
-
-      
+  
   docker-image-build_ECR-image-push:
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +57,7 @@ jobs:
     - name: Build docker image
       working-directory: ratings
       run: |
-           docker build -t ${{env.AWS_ECR_REPO_NAME}} -f Dockerfile .
+            docker build -t ${{env.AWS_ECR_REPO_NAME}} -f Dockerfile .
 
     - name: Checkout code
       uses: actions/checkout@v2

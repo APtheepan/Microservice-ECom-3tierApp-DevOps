@@ -71,7 +71,6 @@ jobs:
     #     uses: actions/checkout@v4
     #     with:
     #       token: ${{ secrets.TOKEN }}
-
     #   - name: Update tag in Helm chart
     #     run: |
     #       sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm/go-web-app-chart/values.yaml
