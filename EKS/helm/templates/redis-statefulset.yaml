@@ -51,7 +51,6 @@ spec:
       {{- end }}
   volumeClaimTemplates:
     - metadata:
-  namespace: {{ .Values.namespace }}
         name: data
       spec:
         accessModes: [ "ReadWriteOnce" ]
