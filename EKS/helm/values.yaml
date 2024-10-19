@@ -5,6 +5,7 @@ image:
   version: latest
   pullPolicy: IfNotPresent
 
+namespace: microservices
 # EUM configuration
 # Provide your key and set the endpoint
 eum:

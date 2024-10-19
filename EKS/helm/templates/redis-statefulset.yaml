@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: StatefulSet
+namespace: {{ .Values.namespace }}
 metadata:
   labels:
     service: redis

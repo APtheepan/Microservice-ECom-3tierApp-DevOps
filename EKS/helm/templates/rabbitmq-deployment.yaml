@@ -1,4 +1,5 @@
 apiVersion: apps/v1
+namespace: {{ .Values.namespace }}
 kind: Deployment
 metadata:
   name: rabbitmq

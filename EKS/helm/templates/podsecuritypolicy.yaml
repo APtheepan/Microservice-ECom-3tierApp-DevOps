@@ -1,5 +1,6 @@
 {{ if .Values.psp.enabled }}
 apiVersion: policy/v1beta1
+namespace: {{ .Values.namespace }}
 kind: PodSecurityPolicy
 metadata:
   name: robot-shop

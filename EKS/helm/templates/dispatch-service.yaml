@@ -1,6 +1,7 @@
 # dispatch just listens to a message queue
 # it does not expose any ports
 apiVersion: v1
+namespace: {{ .Values.namespace }}
 kind: Service
 metadata:
   name: dispatch
