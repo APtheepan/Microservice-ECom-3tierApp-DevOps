@@ -7,9 +7,6 @@ on:
     paths:
       - 'shipping/**'
       - '.github/workflows/shipping_CI.yaml'
-    paths-ignore:
-     - 'README.md'
-     - 'helm/**'
 env:
     AWS_REGION: ${{ vars.AWS_REGION }}
     AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
