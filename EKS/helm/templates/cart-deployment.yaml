@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}  
   name: cart
   labels:
     service: cart
@@ -13,7 +12,6 @@ spec:
       service: cart
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: cart
     spec:
