@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: robot-shop
+  namespace: microservices
   name: robot-shop
   annotations:
     kubernetes.io/ingress.class: alb
