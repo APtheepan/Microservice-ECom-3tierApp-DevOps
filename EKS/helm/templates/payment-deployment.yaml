@@ -15,7 +15,6 @@ spec:
       stage: prod
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: payment
         stage: prod

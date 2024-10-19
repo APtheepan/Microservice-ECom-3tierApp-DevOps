@@ -13,7 +13,6 @@ spec:
       service: web
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: web
     spec:

@@ -13,7 +13,6 @@ spec:
       service: shipping
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: shipping
     spec:

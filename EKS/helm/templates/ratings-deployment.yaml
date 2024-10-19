@@ -13,7 +13,6 @@ spec:
       service: ratings
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: ratings
     spec:

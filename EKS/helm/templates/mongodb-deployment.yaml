@@ -13,7 +13,6 @@ spec:
       service: mongodb
   template:
     metadata:
-  namespace: {{ .Values.namespace }}
       labels:
         service: mongodb
     spec:
