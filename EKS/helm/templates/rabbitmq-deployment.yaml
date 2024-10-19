@@ -1,7 +1,8 @@
 apiVersion: apps/v1
-namespace: {{ .Values.namespace }}
+
 kind: Deployment
 metadata:
+  namespace: {{ .Values.namespace }}
   name: rabbitmq
   labels:
     service: rabbitmq
@@ -12,6 +13,7 @@ spec:
       service: rabbitmq
   template:
     metadata:
+  namespace: {{ .Values.namespace }}
       labels:
         service: rabbitmq
     spec:

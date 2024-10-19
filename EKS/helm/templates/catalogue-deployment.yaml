@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
-namespace: {{ .Values.namespace }}
+
 metadata:
+  namespace: {{ .Values.namespace }}
   name: catalogue
   labels:
     service: catalogue
@@ -12,6 +13,7 @@ spec:
       service: catalogue
   template:
     metadata:
+  namespace: {{ .Values.namespace }}
       labels:
         service: catalogue
     spec:

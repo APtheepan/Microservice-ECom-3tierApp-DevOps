@@ -1,8 +1,9 @@
 {{ if .Values.psp.enabled }}
 apiVersion: rbac.authorization.k8s.io/v1
-namespace: {{ .Values.namespace }}
+
 kind: ClusterRoleBinding
 metadata:
+  namespace: {{ .Values.namespace }}
   name: robot-shop
 roleRef:
   apiGroup: rbac.authorization.k8s.io

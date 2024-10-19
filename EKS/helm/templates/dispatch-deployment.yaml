@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
-namespace: {{ .Values.namespace }}
+
 metadata:
+  namespace: {{ .Values.namespace }}
   name: dispatch
   labels:
     service: dispatch
@@ -12,6 +13,7 @@ spec:
       service: dispatch
   template:
     metadata:
+  namespace: {{ .Values.namespace }}
       labels:
         service: dispatch
     spec:

@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
-namespace: {{ .Values.namespace }}
+
 metadata:
+  namespace: {{ .Values.namespace }}
   labels:
     service: redis
   name: redis
@@ -13,6 +14,7 @@ spec:
   serviceName: redis
   template:
     metadata:
+  namespace: {{ .Values.namespace }}
       labels:
         service: redis
     spec:
@@ -50,6 +52,7 @@ spec:
       {{- end }}
   volumeClaimTemplates:
     - metadata:
+  namespace: {{ .Values.namespace }}
         name: data
       spec:
         accessModes: [ "ReadWriteOnce" ]

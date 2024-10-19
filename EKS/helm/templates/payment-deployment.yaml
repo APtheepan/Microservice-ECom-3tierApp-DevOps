@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
-namespace: {{ .Values.namespace }}
+
 metadata:
+  namespace: {{ .Values.namespace }}
   name: payment
   labels:
     service: payment
@@ -14,6 +15,7 @@ spec:
       stage: prod
   template:
     metadata:
+  namespace: {{ .Values.namespace }}
       labels:
         service: payment
         stage: prod

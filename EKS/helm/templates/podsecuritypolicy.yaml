@@ -1,8 +1,9 @@
 {{ if .Values.psp.enabled }}
 apiVersion: policy/v1beta1
-namespace: {{ .Values.namespace }}
+
 kind: PodSecurityPolicy
 metadata:
+  namespace: {{ .Values.namespace }}
   name: robot-shop
 spec:
   allowPrivilegeEscalation: false
